@@ -1,0 +1,12 @@
+{
+  "servers": [
+    {
+      "name": "PostgreSQL",
+      "service_name": "postgresql"
+    },
+    {
+      "name": "iptables",
+      "service_name": "iptables"
+    }
+  ]
+}
