@@ -8,7 +8,7 @@ port = 9090
 server.bind((hostname, port))
 
 while True:
-    server.accept()
+    con, ip = server.accept()
     json_file = open("config.json")
     json_data = json.load(json_file)
 
