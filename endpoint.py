@@ -22,5 +22,6 @@ while True:
 
         if service_status == "inactive":
             status_list.append({'service_name': s['hostname'], 'status': "inactive"})
+            print(status_list)
 
-        print(json.dumps(status_list))
+        # print(json.dumps(status_list))
