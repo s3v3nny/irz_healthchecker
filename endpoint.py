@@ -6,9 +6,10 @@ server = socket.socket()
 hostname = socket.gethostname()
 port = 9090
 server.bind((hostname, port))
+server.listen(2)
 
 while True:
-    # con, ip = server.accept()
+    con, ip = server.accept()
     json_file = open("config.json")
     json_data = json.load(json_file)
 
@@ -18,10 +19,11 @@ while True:
         service_status = os.system(command)
 
         if service_status == "active":
-            status_list.append({'service_name': s['hostname'], 'status': "active"})
+            status_list.append({'service_name': s['name'], 'status': "active"})
 
         if service_status == "inactive":
-            status_list.append({'service_name': s['hostname'], 'status': "inactive"})
-            print(status_list)
+            status_list.append({'service_name': s['name'], 'status': "inactive"})
 
-        # print(json.dumps(status_list))
+    json_file.close()
+    con.send(json.dumps(status_list).encode())
+    con.close()
