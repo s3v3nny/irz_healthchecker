@@ -1,6 +1,6 @@
 import socket
 
 client = socket.socket()
-client.connect(("10.0.2.15", 9090))
-data = client.recv()
+client.connect(("localhost", 9090))
+data = client.recv(2048)
 print(data.decode())

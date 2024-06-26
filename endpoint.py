@@ -2,11 +2,11 @@ import os
 import json
 import socket
 
-server = socket.socket()
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 hostname = socket.gethostname()
 port = 9090
 server.bind((hostname, port))
-server.listen(2)
+server.listen()
 
 while True:
     con, ip = server.accept()
