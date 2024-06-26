@@ -18,7 +18,6 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             if service_status == "inactive":
                 status_list.append({'service_name': s['name'], 'status': "inactive"})
         json_file.close()
-        print(json.dumps(status_list))
         self.wfile.write(json.dumps(status_list).encode())
         self.send_response(200)
 
