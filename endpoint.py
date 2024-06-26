@@ -16,10 +16,12 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
             service_status = os.system(command)
 
             if service_status == "active":
+                print("active here")
                 status_list.append({'service_name': s['name'],
                                     'status': "active"})
 
             if service_status == "inactive":
+                print("inactive here")
                 status_list.append({'service_name': s['name'],
                                     'status': "inactive"})
         json_file.close()
