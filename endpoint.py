@@ -10,23 +10,25 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
         json_file = open("config.json")
         json_data = json.load(json_file)
-        status_list = []
+        output_data = []
+        services = []
+        output_data.append(services)
         for s in json_data['servers']:
             command = 'systemctl is-active ' + s['service_name']
             status = subprocess.getoutput(command)
 
             if status == "active":
                 print("active here")
-                status_list.append({'service_name': s['name'],
+                services.append({'service_name': s['name'],
                                     'status': "active"})
 
             if status == "inactive":
                 print("inactive here")
-                status_list.append({'service_name': s['name'],
+                services.append({'service_name': s['name'],
                                     'status': "inactive"})
         json_file.close()
-        print(json.dumps(status_list))
-        self.wfile.write(json.dumps(status_list).encode())
+        print(json.dumps(services))
+        self.wfile.write(json.dumps(services).encode())
 
 
 httpd = http.server.HTTPServer(('', 8080), RequestHandler)
