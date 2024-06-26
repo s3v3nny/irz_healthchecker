@@ -11,7 +11,7 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
         json_file = open("config.json")
         json_data = json.load(json_file)
         services = {'services': []}
-        for s in json_data['servers']:
+        for s in json_data['services']:
             command = 'systemctl is-active ' + s['service_name']
             status = subprocess.getoutput(command)
 
