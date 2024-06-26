@@ -5,11 +5,8 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        self.send_response(200)
-        self.end_headers()
         json_file = open("config.json")
         json_data = json.load(json_file)
-
         status_list = []
         for s in json_data['servers']:
             command = 'systemctl is-active ' + s['service_name']
@@ -20,10 +17,10 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
             if service_status == "inactive":
                 status_list.append({'service_name': s['name'], 'status': "inactive"})
-
         json_file.close()
         print(json.dumps(status_list))
         self.wfile.write(json.dumps(status_list).encode())
+        self.send_response(200)
 
 
 
