@@ -1,8 +1,8 @@
 {
   "servers": [
     {
-      "name": "PostgreSQL",
-      "service_name": "postgresql"
+      "name": "AKPJCrosspostBot",
+      "service_name": "akpjbot"
     },
     {
       "name": "iptables",
