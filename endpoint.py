@@ -4,7 +4,7 @@ import socket
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 hostname = socket.gethostname()
-port = 9090
+port = 8080
 server.bind((hostname, port))
 server.listen()
 
