@@ -15,12 +15,12 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
             command = 'systemctl is-active ' + s['service_name']
             service_status = os.system(command)
 
-            if service_status == "active":
+            if service_status == 1:
                 print("active here")
                 status_list.append({'service_name': s['name'],
                                     'status': "active"})
 
-            if service_status == "inactive":
+            if service_status == 0:
                 print("inactive here")
                 status_list.append({'service_name': s['name'],
                                     'status': "inactive"})
