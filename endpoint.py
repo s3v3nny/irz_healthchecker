@@ -25,7 +25,6 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
                 services['services'].append({'service_name': s['name'],
                                     'status': "inactive"})
         json_file.close()
-        print(json.dumps(services))
         self.wfile.write(json.dumps(services).encode())
 
 

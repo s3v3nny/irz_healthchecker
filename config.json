@@ -5,8 +5,8 @@
       "service_name": "akpjbot"
     },
     {
-      "name": "iptables",
-      "service_name": "iptables"
+      "name": "PostgreSQL",
+      "service_name": "postgresql"
     }
   ]
 }
