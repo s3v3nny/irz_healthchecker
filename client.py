@@ -1,6 +1,5 @@
-import socket
+import requests
+from requests import get
 
-client = socket.socket()
-client.connect(("localhost", 9090))
-data = client.recv(2048)
-print(data.decode())
+response = requests.get('http://localhost:8080')
+print(response.text)

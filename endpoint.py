@@ -1,29 +1,30 @@
 import os
 import json
-import socket
 
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-hostname = socket.gethostname()
-port = 8080
-server.bind((hostname, port))
-server.listen()
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
-while True:
-    con, ip = server.accept()
-    json_file = open("config.json")
-    json_data = json.load(json_file)
+class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        json_file = open("config.json")
+        json_data = json.load(json_file)
 
-    status_list = []
-    for s in json_data['servers']:
-        command = 'systemctl is-active ' + s['service_name']
-        service_status = os.system(command)
+        status_list = []
+        for s in json_data['servers']:
+            command = 'systemctl is-active ' + s['service_name']
+            service_status = os.system(command)
 
-        if service_status == "active":
-            status_list.append({'service_name': s['name'], 'status': "active"})
+            if service_status == "active":
+                status_list.append({'service_name': s['name'], 'status': "active"})
 
-        if service_status == "inactive":
-            status_list.append({'service_name': s['name'], 'status': "inactive"})
+            if service_status == "inactive":
+                status_list.append({'service_name': s['name'], 'status': "inactive"})
 
-    json_file.close()
-    con.send(json.dumps(status_list).encode())
-    con.close()
+        json_file.close()
+        self.wfile.write(json.dumps(status_list).encode())
+
+
+
+httpd = HTTPServer(('', 8080), SimpleHTTPRequestHandler)
+httpd.serve_forever()
