@@ -23,6 +23,7 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
                 status_list.append({'service_name': s['name'],
                                     'status': "inactive"})
         json_file.close()
+        print(json.dumps(status_list))
         self.wfile.write(json.dumps(status_list).encode())
 
 
