@@ -1,6 +1,6 @@
 import http.server
 import json
-import os
+import subprocess
 
 
 class RequestHandler(http.server.BaseHTTPRequestHandler):
@@ -13,14 +13,14 @@ class RequestHandler(http.server.BaseHTTPRequestHandler):
         status_list = []
         for s in json_data['servers']:
             command = 'systemctl is-active ' + s['service_name']
-            service_status = os.system(command)
+            status = subprocess.getoutput(command)
 
-            if service_status == 1:
+            if status == "active":
                 print("active here")
                 status_list.append({'service_name': s['name'],
                                     'status': "active"})
 
-            if service_status == 0:
+            if status == "inactive":
                 print("inactive here")
                 status_list.append({'service_name': s['name'],
                                     'status': "inactive"})
